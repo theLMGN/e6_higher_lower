@@ -69,7 +69,6 @@
 
     // obj of img that we have the url for
     var imgCache = JSON.parse(localStorage.getItem("imgCache") || "{}")
-
     console.log("here")
     window.playGame = function() {
         if (!tags) return;
@@ -130,3 +129,14 @@
         }
     })
 })()
+
+function hideDisclaimer() {
+    document.querySelector('#introPanel').style.display = 'block';
+    document.querySelector('#disclaimerPanel').style.display = 'none';
+    document.body.innerHTML += `<script async src="https://www.googletagmanager.com/gtag/js?id=UA-71214662-5"></script>`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-71214662-5');
+}

@@ -7,9 +7,9 @@
         <div id="disclaimerPanel" class="panel">
             <div id="disclaimer" class="innards">
                 <h1>Warning!</h1>
-                This website includes images of graphic pornographic materials of anthropromorphic animals, some of which may include kinks that many may find disturbing. <b>I'm not responsible for what you see here.</b><br><br>This website isn't associated, promoted or affiliated with e621.net or any of the artists of the work shown.<br><br>
-                <a onclick="document.querySelector('#introPanel').style.display = 'block';document.querySelector('#disclaimerPanel').style.display = 'none';" class="button">Bring it on!</a> 
-            <a onclick="document.querySelector('#introPanel').style.display = 'block';document.querySelector('#disclaimerPanel').style.display = 'none';window.dontshowimages = true;document.body.innerHTML += '<style>#rightImg,#leftImg,#vleftImg{display:none;}</style>'" class="button">I'm fine with that, but don't show me images.</a>
+                This website includes images of graphic pornographic materials of anthropromorphic animals, some of which may include kinks that many may find disturbing. <b>I'm not responsible for what you see here.</b><br><br>This website isn't associated, promoted or affiliated with e621.net or any of the artists of the work shown.<br>This page uses Google Analytics. Clicking any of the below buttons will result in you explicitly consenting to this.<br><br>
+                <a onclick="hideDisclaimer()" class="button">Bring it on!</a> 
+            <a onclick="hideDisclaimer();window.dontshowimages = true;document.body.innerHTML += '<style>#rightImg,#leftImg,#vleftImg{display:none;}</style>'" class="button">I'm fine with that, but don't show me images.</a>
             </div>
         </div>
         <div id="introPanel" class="panel"  style="display:none">
@@ -52,14 +52,6 @@
         </div>
     </body>
     <script src="index.js"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-71214662-5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'UA-71214662-5');
-</script>
 
 </html>
