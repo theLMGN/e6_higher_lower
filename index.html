@@ -8,7 +8,8 @@
             <div id="disclaimer" class="innards">
                 <h1>Warning!</h1>
                 This website includes images of graphic pornographic materials of anthropromorphic animals, some of which may include kinks that many may find disturbing. <b>I'm not responsible for what you see here.</b><br><br>This website isn't associated, promoted or affiliated with e621.net or any of the artists of the work shown.<br><br>
-                <a onclick="document.querySelector('#introPanel').style.display = 'block';document.querySelector('#disclaimerPanel').style.display = 'none';" class="button">Bring it on!</a> <a onclick="document.querySelector('#introPanel').style.display = 'block';document.querySelector('#disclaimerPanel').style.display = 'none';window.dontshowimages = true;" class="button">I'm fine with that, but don't show me images.</a>
+                <a onclick="document.querySelector('#introPanel').style.display = 'block';document.querySelector('#disclaimerPanel').style.display = 'none';" class="button">Bring it on!</a> 
+            <a onclick="document.querySelector('#introPanel').style.display = 'block';document.querySelector('#disclaimerPanel').style.display = 'none';window.dontshowimages = true;document.body.innerHTML += '<style>#rightImg,#leftImg,#vleftImg{display:none;}</style>'" class="button">I'm fine with that, but don't show me images.</a>
             </div>
         </div>
         <div id="introPanel" class="panel"  style="display:none">
@@ -43,9 +44,9 @@
                 <div class="innards">
                     does
                     <h1 id="rightTagName"  class="tagName">TAG</h1>
-                    have
-                    <a id="higherBtn"  class="button">More</a> or <a id="lowerBtn" class="button">Less</a>
-                    images 
+                    have<br>
+                    <a id="higherBtn"  class="button">More</a><br> or <br><a id="lowerBtn" class="button">Less</a>
+                    <br>images 
                 </div>
             </div>
         </div>

@@ -103,8 +103,34 @@ h1 {
     background-size:cover;
     background-position: center;
 }
+@keyframes slide {
+    from {transform: translate(50%,0%)}
+    to {transform: translate(0%,0%)}
+  }
+  
+
+#gamePanel {
+    animation-duration: 0.5s;
+
+}
 
 body{
     padding:0px;
     margin:0px;
+}
+.final {
+    font-size:0px;
+}
+.final > h1 {
+    font-size:80px;
+}
+.final > .button {
+    font-size:80px;
+}
+.final > #higherBtn {
+    display:none;
+}
+h1 {
+    max-width: 50vw;
+    word-wrap: break-word;
 }

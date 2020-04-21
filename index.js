@@ -11,7 +11,7 @@
     var gamestate = {
         playing: false,
         score: 0,
-        hiscore:0,
+        hiscore:isNaN(parseInt(localStorage.getItem("hiscore"))) ? 0 : parseInt(localStorage.getItem("hiscore")),
         lastTag: {tag: "",imgs:0},
         leftTag: undefined,
         rightTag: undefined,
@@ -35,7 +35,7 @@
         if (imgCache[key]) { return imgCache[key] }
         if (!imgPresent[key]) {
             imgPresent[key] = true
-            fetch("https://e621.net/posts.json?limit=1&tags=" + encodeURIComponent(key) + "%20order%3Arandom&client=esixhigherlower_leo_at_thelmgn_dot_com").then(function(f) {f.json().then(function(j) { 
+            fetch("https://e621.net/posts.json?limit=1&tags=" + encodeURIComponent(key) + "%20-animation%20-animated%20order%3Arandom&client=esixhigherlower_leo_at_thelmgn_dot_com").then(function(f) {f.json().then(function(j) { 
                 imgCache[key] = "url(" + j.posts[0].file.url + ")"
                 localStorage.setItem("imgCache",JSON.stringify(imgCache))
             })})
@@ -44,10 +44,10 @@
     function render() {
         try {
             document.querySelector("#vleftTagName").innerText = gamestate.lastTag.tag
-            document.querySelector("#vleftTagResult").innerText = gamestate.lastTag.imgs
+            document.querySelector("#vleftTagResult").innerText = gamestate.lastTag.imgs.toLocaleString()
             document.querySelector("#vleftImg").style.backgroundImage = getImage(gamestate.lastTag.tag)
             document.querySelector("#leftTagName").innerText = gamestate.leftTag.tag
-            document.querySelector("#leftTagResult").innerText = gamestate.leftTag.imgs
+            document.querySelector("#leftTagResult").innerText = gamestate.leftTag.imgs.toLocaleString()
             document.querySelector("#leftImg").style.backgroundImage = getImage(gamestate.leftTag.tag)
             document.querySelector("#rightTagName").innerText = gamestate.rightTag.tag
             document.querySelector("#rightImg").style.backgroundImage = getImage(gamestate.rightTag.tag)
@@ -73,6 +73,8 @@
     console.log("here")
     window.playGame = function() {
         if (!tags) return;
+        document.querySelector(".side.panel.right > .innards").classList.remove("final")
+        document.querySelector("#lowerBtn").innerText = "Lower"
         gamestate.score = 0
         gamestate.leftTag = random()
         gamestate.rightTag = random()
@@ -89,27 +91,26 @@
         gamestate.leftTag = gamestate.rightTag
         gamestate.rightTag = panel
         render()
-        document.querySelector("#gamePanel").style.transform = "translate(50%,0%)"
-
-        setTimeout(function() {
-            document.querySelector("#gamePanel").style.transition = "0.5s transform"
-            setTimeout(function() {
-                document.querySelector("#gamePanel").style.transform = "translate(0%,0%)"
-            })
-        })
+        document.querySelector("#gamePanel").style.animationName = "" 
+        document.querySelector("#gamePanel").style.animationName = "slide" 
         
         setTimeout(function() {
-            document.querySelector("#gamePanel").style.transition = "all 0s ease 0s" 
+            document.querySelector("#gamePanel").style.animationName = "" 
             animating = false
         },500)
     }
     function winstate() {
         gamestate.score += 1
+        if (gamestate.score > gamestate.hiscore) { gamestate.hiscore = gamestate.score; localStorage.setItem("hiscore",gamestate.hiscore)}
+        document.title = "e6MoL : Score: " + gamestate.score + " HI: " + gamestate.hiscore 
         switchPanel(random())
     }
     function losestate() {
         gamestate.playing = false
+        document.querySelector(".side.panel.right > .innards").classList.add("final")
+        document.querySelector("#lowerBtn").innerText = "Try again"
         switchPanel({tag: "Final score: " + gamestate.score,imgs:0})
+
     }
     document.querySelector("#higherBtn").addEventListener("click",function() {
         if (animating) { return }
