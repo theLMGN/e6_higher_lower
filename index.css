@@ -141,13 +141,13 @@ body{
 .final > #higherBtn {
     display:none;
 }
-#shareBox {
+#thisistheboxforsharing_fuck_off_content_blockers {
     display:none;
 }
-.final > #shareBox {
+.final > #thisistheboxforsharing_fuck_off_content_blockers {
     display:block;
 }
-.final > #shareBox {
+.final > #thisistheboxforsharing_fuck_off_content_blockers {
     font-size: 20px;
 }
 h1 {
@@ -212,5 +212,14 @@ h1 {
         top: 50vh;
         top: calc(var(--vh, 1vh) * 50);
         left: 0;
+    }
+    .final {
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        top: 0px;
+        position: fixed;
+        width:100vw;
+        left: 0;
+        background: rgb(86, 46, 1);
     }
 }
