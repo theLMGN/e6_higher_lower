@@ -1,4 +1,5 @@
 // this code is very sloppy i wrote it at 3am
+if (location.protocol == "http:" && location.host == "thelmgn.com") { location.protocol = "https:"}
 document.ontouchmove = function(e){ 
     if (e.preventDefault) {e.preventDefault();}
     return false 
