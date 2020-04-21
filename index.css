@@ -78,3 +78,18 @@ h1 {
 .right > .innards {
     left: 75vw;
 } 
+
+#leftImg {
+    opacity: 0.4;
+    background-size:cover;
+    background-position: center;
+}
+#rightImg {
+    opacity: 0.5;
+    position:fixed;
+    left:50vw;
+    width:50vw;
+    background-size:cover;
+    background-position: center;
+
+}

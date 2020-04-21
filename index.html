@@ -15,11 +15,13 @@
             <div id="intro" class="innards">
                 <h1>The e621 More Or Less Game</h1>
                 You'll see two e621 tags, choose if the one on the right has more images than the one on the left. Got it?<br><br>
-                <a onclick="playGame()" id="play" class="button disabled">Loading</a> 
+                <a onclick="playGame()" id="play" class="button disabled">Loading</a> <br>
+                made by <a href="https://thelmgn.com">me</a>
             </div>
         </div>
         <div id="gamePanel" style="display:none">
             <div class="side panel left">
+                <div class="side panel left" id="leftImg"></div>
                 <div class="innards">
                     <h1 id="leftTagName" class="tagName">TAG</h1>
                     has
@@ -28,6 +30,7 @@
                 </div>
             </div>
             <div class="side panel right">
+                <div class="side panel right" id="rightImg"></div>
                 <div class="innards">
                     does
                     <h1 id="rightTagName"  class="tagName">TAG</h1>

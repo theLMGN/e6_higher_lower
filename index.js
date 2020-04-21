@@ -15,29 +15,54 @@
         leftTag: undefined,
         rightTag: undefined,
     }
+    window.gamestate = gamestate
 
     function random() {
         var keys = Object.keys(tags)
         var key = keys[Math.ceil(Math.random() * keys.length)]
-        setTimeout(function() {
-            if (!imgCache[key]) {
-                
-            }
-        })
-        return {tag:key,imgs: tags[key]}
+        return {tag:key,imgs: parseInt(tags[key])}
     }
     function correct(left,right,higher) {
         if (higher  & left <= right) { return true }
         if (!higher & left >= right) { return true }
         return false
     }
+    function getImage(key) {
+        if (key.startsWith("Final score")) { return "linear-gradient(to right, rgb(86, 46, 1) 0%, rgb(86, 46, 1) 100%)"}
+        if (window.dontshowimages) { return }
+        if (imgCache[key]) { return imgCache[key] }
+        if (!imgPresent[key]) {
+            imgPresent[key] = true
+            fetch("https://e621.net/posts.json?limit=1&tags=" + encodeURIComponent(key) + "%20order%3Arandom&client=esixhigherlower_leo_at_thelmgn_dot_com").then(function(f) {f.json().then(function(j) { 
+                imgCache[key] = "url(" + j.posts[0].file.url + ")"
+                localStorage.setItem("imgCache",JSON.stringify(imgCache))
+            })})
+        }
+    }
     function render() {
-        document.querySelector("#leftTagName").innerText = gamestate.leftTag.tag
-        document.querySelector("#leftTagResult").innerText = gamestate.leftTag.imgs
-        document.querySelector("#rightTagName").innerText = gamestate.rightTag.tag
+        try {
+            document.querySelector("#leftTagName").innerText = gamestate.leftTag.tag
+            document.querySelector("#leftTagResult").innerText = gamestate.leftTag.imgs
+            document.querySelector("#leftImg").style.backgroundImage = getImage(gamestate.leftTag.tag)
+            document.querySelector("#rightTagName").innerText = gamestate.rightTag.tag
+            document.querySelector("#rightImg").style.backgroundImage = getImage(gamestate.rightTag.tag)
+        } catch(e) {
+
+        }
+        
     }
 
-    var imgCache = {}
+    function renderFrame() {
+        render()
+        requestAnimationFrame(renderFrame)
+    }
+    renderFrame()
+
+    // obj of imgs that are currently in progress or retrieved
+    var imgPresent = {}
+
+    // obj of img that we have the url for
+    var imgCache = JSON.parse(localStorage.getItem("imgCache") || "{}")
 
     console.log("here")
     window.playGame = function() {
@@ -52,25 +77,31 @@
 
     }
     document.querySelector("#higherBtn").addEventListener("click",function() {
+        if (!gamestate.playing) { return window.playGame() }
         if (correct(gamestate.leftTag.imgs,gamestate.rightTag.imgs,true)) {
             gamestate.score += 1;
             gamestate.leftTag = gamestate.rightTag
             gamestate.rightTag = random()
             render()
         } else {
-            alert("boo you suck you only got " + gamestate.score)
-            window.playGame()
+            gamestate.playing = false
+            gamestate.leftTag = gamestate.rightTag
+            gamestate.rightTag = {tag: "Final score: " + gamestate.score,imgs:0}
+            render()
         }
     })
     document.querySelector("#lowerBtn").addEventListener("click",function() {
+        if (!gamestate.playing) { return window.playGame() }
         if (correct(gamestate.leftTag.imgs,gamestate.rightTag.imgs,false)) {
             gamestate.score += 1;
             gamestate.leftTag = gamestate.rightTag
             gamestate.rightTag = random()
             render()
         } else {
-            alert("boo you suck you only got " + gamestate.score)
-            window.playGame()
+            gamestate.playing = false
+            gamestate.leftTag = gamestate.rightTag
+            gamestate.rightTag = {tag: "Final score: " + gamestate.score,imgs:0}
+            render()
         }
     })
 })()
