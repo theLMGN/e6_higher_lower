@@ -65,7 +65,12 @@ h1 {
 .side {
     width:50vw;
 }
-
+.vleft {
+    left: -50vw;
+}
+.vleft > .innards {
+    left: -25vw;
+} 
 .left {
     left: 0;
 }
@@ -91,5 +96,15 @@ h1 {
     width:50vw;
     background-size:cover;
     background-position: center;
+}
 
+#vleftImg {
+    opacity: 0.4;
+    background-size:cover;
+    background-position: center;
+}
+
+body{
+    padding:0px;
+    margin:0px;
 }

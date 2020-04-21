@@ -12,6 +12,7 @@
         playing: false,
         score: 0,
         hiscore:0,
+        lastTag: {tag: "",imgs:0},
         leftTag: undefined,
         rightTag: undefined,
     }
@@ -23,6 +24,7 @@
         return {tag:key,imgs: parseInt(tags[key])}
     }
     function correct(left,right,higher) {
+        left = parseInt(left);right=parseInt(right)
         if (higher  & left <= right) { return true }
         if (!higher & left >= right) { return true }
         return false
@@ -41,6 +43,9 @@
     }
     function render() {
         try {
+            document.querySelector("#vleftTagName").innerText = gamestate.lastTag.tag
+            document.querySelector("#vleftTagResult").innerText = gamestate.lastTag.imgs
+            document.querySelector("#vleftImg").style.backgroundImage = getImage(gamestate.lastTag.tag)
             document.querySelector("#leftTagName").innerText = gamestate.leftTag.tag
             document.querySelector("#leftTagResult").innerText = gamestate.leftTag.imgs
             document.querySelector("#leftImg").style.backgroundImage = getImage(gamestate.leftTag.tag)
@@ -54,6 +59,7 @@
 
     function renderFrame() {
         render()
+        if (!animating) { document.querySelector("#gamePanel").style.transition = "all 0s ease 0s"  }
         requestAnimationFrame(renderFrame)
     }
     renderFrame()
@@ -76,32 +82,50 @@
         document.querySelector("#gamePanel").style.display = "block"
 
     }
+    var animating = false
+    function switchPanel(panel) {
+        animating = true
+        gamestate.lastTag = gamestate.leftTag
+        gamestate.leftTag = gamestate.rightTag
+        gamestate.rightTag = panel
+        render()
+        document.querySelector("#gamePanel").style.transform = "translate(50%,0%)"
+
+        setTimeout(function() {
+            document.querySelector("#gamePanel").style.transition = "0.5s transform"
+            setTimeout(function() {
+                document.querySelector("#gamePanel").style.transform = "translate(0%,0%)"
+            })
+        })
+        
+        setTimeout(function() {
+            document.querySelector("#gamePanel").style.transition = "all 0s ease 0s" 
+            animating = false
+        },500)
+    }
+    function winstate() {
+        gamestate.score += 1
+        switchPanel(random())
+    }
+    function losestate() {
+        gamestate.playing = false
+        switchPanel({tag: "Final score: " + gamestate.score,imgs:0})
+    }
     document.querySelector("#higherBtn").addEventListener("click",function() {
+        if (animating) { return }
         if (!gamestate.playing) { return window.playGame() }
         if (correct(gamestate.leftTag.imgs,gamestate.rightTag.imgs,true)) {
-            gamestate.score += 1;
-            gamestate.leftTag = gamestate.rightTag
-            gamestate.rightTag = random()
-            render()
+            winstate()
         } else {
-            gamestate.playing = false
-            gamestate.leftTag = gamestate.rightTag
-            gamestate.rightTag = {tag: "Final score: " + gamestate.score,imgs:0}
-            render()
+            losestate()
         }
     })
     document.querySelector("#lowerBtn").addEventListener("click",function() {
         if (!gamestate.playing) { return window.playGame() }
         if (correct(gamestate.leftTag.imgs,gamestate.rightTag.imgs,false)) {
-            gamestate.score += 1;
-            gamestate.leftTag = gamestate.rightTag
-            gamestate.rightTag = random()
-            render()
+            winstate()
         } else {
-            gamestate.playing = false
-            gamestate.leftTag = gamestate.rightTag
-            gamestate.rightTag = {tag: "Final score: " + gamestate.score,imgs:0}
-            render()
+            losestate()
         }
     })
 })()
