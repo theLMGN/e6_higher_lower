@@ -133,7 +133,9 @@
 function hideDisclaimer() {
     document.querySelector('#introPanel').style.display = 'block';
     document.querySelector('#disclaimerPanel').style.display = 'none';
-    document.body.innerHTML += `<script async src="https://www.googletagmanager.com/gtag/js?id=UA-71214662-5"></script>`
+    var scriptTag = document.createElement('script');
+    scriptTag.src = "https://www.googletagmanager.com/gtag/js?id=UA-71214662-5";
+    document.body.appendChild(scriptTag);
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
