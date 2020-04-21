@@ -109,7 +109,16 @@
         document.querySelector(".side.panel.right > .innards").classList.add("final")
         document.querySelector("#lowerBtn").innerText = "Try again"
         switchPanel({tag: "Final score: " + gamestate.score,imgs:0})
-
+        var shareText = encodeURIComponent("Can you beat my e621 more or less score of " + gamestate.score + "?")
+        document.querySelector("#tgButton").href = "https://telegram.me/share/url?text=" + shareText + "&url=" + location.toString()
+        document.querySelector("#twButton").href = "https://twitter.com/intent/tweet?text=" + shareText+ "&url=" + location.toString()
+        document.querySelector("#shButton").style.display = navigator.share ? "block" : "none"
+        document.querySelector("#shButton").onclick = function() {
+            navigator.share({title: "Can you beat my score?", text: "I got a score of " + gamestate.score + " in the e621 more or less game. Can you do better?",url: location.toString()}).catch(function() {
+                document.querySelector("#shButton").style.display = "block"
+                navigator.share = undefined
+            })
+        }
     }
     document.querySelector("#higherBtn").addEventListener("click",function() {
         if (animating) { return }

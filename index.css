@@ -130,6 +130,15 @@ body{
 .final > #higherBtn {
     display:none;
 }
+#shareBox {
+    display:none;
+}
+.final > #shareBox {
+    display:block;
+}
+.final > #shareBox {
+    font-size: 20px;
+}
 h1 {
     max-width: 50vw;
     word-wrap: break-word;
