@@ -1,6 +1,9 @@
 // this code is very sloppy i wrote it at 3am
-
-(function() {
+document.ontouchmove = function(e){ 
+    if (e.preventDefault) {e.preventDefault();}
+    return false 
+}
+;(function() {
     var tags
     // get tags
     fetch("./tags.json").then(function(f) {f.json().then(function(j) { 
@@ -60,6 +63,12 @@
     function renderFrame() {
         render()
         if (!animating) { document.querySelector("#gamePanel").style.transition = "all 0s ease 0s"  }
+        // fucking safari
+        // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+        let vh = window.innerHeight * 0.01;
+        // Then we set the value in the --vh custom property to the root of the document
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        window.scrollTo(0,0)
         requestAnimationFrame(renderFrame)
     }
     renderFrame()
@@ -85,13 +94,21 @@
     }
     var animating = false
     function switchPanel(panel) {
+        if (window.matchMedia("(orientation:portrait)").matches) {
+            gamestate.lastTag = gamestate.leftTag
+            gamestate.leftTag = gamestate.rightTag
+            gamestate.rightTag = panel
+            render()
+            document.querySelector("#gamePanel").style.animationName = "" 
+            return 
+        }
         animating = true
         gamestate.lastTag = gamestate.leftTag
         gamestate.leftTag = gamestate.rightTag
         gamestate.rightTag = panel
         render()
         document.querySelector("#gamePanel").style.animationName = "" 
-        document.querySelector("#gamePanel").style.animationName = "slide" 
+        document.querySelector("#gamePanel").style.animationName = window.matchMedia("(orientation:portrait)").matches ? "slideV" : "slide" 
         
         setTimeout(function() {
             document.querySelector("#gamePanel").style.animationName = "" 
@@ -150,4 +167,9 @@ function hideDisclaimer() {
     gtag('js', new Date());
 
     gtag('config', 'UA-71214662-5');
+}
+
+document.onscroll = function() {
+    document.scrollingElement.scrollTop = 0
+    window.scrollTo(0,0)
 }

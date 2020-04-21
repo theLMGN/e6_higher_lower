@@ -12,10 +12,22 @@ body {
             user-select: none; 
             overflow: hidden;
 }
+
+/* mobile safari is the new ie6*/
+html,
+body {
+    overflow: hidden;
+    position: relative;
+    height: calc(var(--vh, 1vh) * 100);
+    max-height: calc(var(--vh, 1vh) * 100);
+
+}
+
 .panel {
     position:fixed;
     width:100vw;
     height:100vh;
+    height: calc(var(--vh, 1vh) * 100);
     left:0;
     top:0;
 }
@@ -23,6 +35,7 @@ body {
     position: fixed;
     left:50vw;
     top:50vh;
+    top: calc(var(--vh, 1vh) * 50);
     text-align: center;
     transform: translate(-50%,-50%);
 }
@@ -50,8 +63,10 @@ body {
 }
 
 h1 {
-    font-size: 500%;
+    font-size: 300%;
     line-height: 1em;
+    padding:0;
+    margin:0;
 }
 
 #disclaimerPanel {
@@ -104,11 +119,6 @@ h1 {
     background-size:cover;
     background-position: center;
 }
-@keyframes slide {
-    from {transform: translate(50%,0%)}
-    to {transform: translate(0%,0%)}
-  }
-  
 
 #gamePanel {
     animation-duration: 0.5s;
@@ -144,37 +154,63 @@ h1 {
     max-width: 50vw;
     word-wrap: break-word;
 }
-@media (orientation: portrait) {
+@keyframes slide {
+    from {transform: translateX(50%)}
+    to {transform: translateX(0%)}
+}
+@keyframes slideV {
+    from {margin-top: 50vh;}
+    to {margin-top: 0vh;}
+}
+  
+@media (orientation:portrait) {
     h1 { max-width: 100vw; }
-    @keyframes slide {
-        from {transform: translate(0%,50%)}
-        to {transform: translate(0%,0%)}
-    }
+    
     #rightImg {
-        top:50vw;
+        top:50vh;
         left:0px;
         height:50vh;
         width: 100vw;
+        height: calc(var(--vh, 1vh) * 50);
+        top: calc(var(--vh, 1vh) * 50);
     }
 
     .side {
         width:100vw;
         height:50vh;
+        height: calc(var(--vh, 1vh) * 50);
     }
     .vleft {
         top: -50vh;
+        top: calc(var(--vh, 1vh) * -50);
         left:0px;
     }
     .vleft > .innards {
         top: -25vh;
+        top: calc(var(--vh, 1vh) * -25);
         left:50vw;
     } 
-    .right {
-        right: 0;
-        bottom:0;
+    .left > .innards {
+        top: 25vh;
+        top: calc(var(--vh, 1vh) * 25);
+        left: 50vw;
+    }
+    .left {
+        height: 50vh;
+        height: calc(var(--vh, 1vh) * 50);
+        top: 0;
+        left: 0;
     }
     .right > .innards {
         top: 75vh;
-        left:50vw;
-    } 
+        top: calc(var(--vh, 1vh) * 75);
+        left: 50vw;
+    }
+    .right {
+        height: 50vh;
+        height: calc(var(--vh, 1vh) * 50);
+        top: 50vh;
+        top: calc(var(--vh, 1vh) * 50);
+        left: 0;
+    }
 }
