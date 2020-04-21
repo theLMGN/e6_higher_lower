@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+body {
+    background-color: rgb(1, 46, 86);
+    font-family: "Montserrat", sans-serif;
+    color: #fff;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; 
+}
+.panel {
+    position:fixed;
+    width:100vw;
+    height:100vh;
+    left:0;
+    top:0;
+}
+.innards {
+    position: fixed;
+    left:50vw;
+    top:50vh;
+    text-align: center;
+    transform: translate(-50%,-50%);
+}
+.button {
+    border: 1px solid white;
+    font-size: 150%;
+    padding-left:3px;
+    padding-right:3px;
+    padding-top: 0px;
+    padding-bottom: 1px;
+    border-radius:5px;
+    color: #fff;
+}
+.button:hover {
+    background: #fff;
+    color: #000;
+}
+.disabled {
+    color: #aaa;
+    border: 1px solid #aaa;
+}
+.disabled:hover {
+    background: transparent;
+    color: #aaa;
+}
+
+h1 {
+    font-size: 500%;
+    line-height: 1em;
+}
+
+#disclaimerPanel {
+    background:#000;
+    z-index: 1000;
+}
+
+#play {
+    font-size: 250%;
+}
+
+.side {
+    width:50vw;
+}
+
+.left {
+    left: 0;
+}
+.left > .innards {
+    left: 25vw;
+} 
+.right {
+    right: 0;
+}
+.right > .innards {
+    left: 75vw;
+} 
