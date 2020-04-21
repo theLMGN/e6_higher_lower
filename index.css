@@ -143,3 +143,37 @@ h1 {
     max-width: 50vw;
     word-wrap: break-word;
 }
+@media (orientation: portrait) {
+    h1 { max-width: 100vw; }
+    @keyframes slide {
+        from {transform: translate(0%,50%)}
+        to {transform: translate(0%,0%)}
+    }
+    #rightImg {
+        top:50vw;
+        left:0px;
+        height:50vh;
+        width: 100vw;
+    }
+
+    .side {
+        width:100vw;
+        height:50vh;
+    }
+    .vleft {
+        top: -50vh;
+        left:0px;
+    }
+    .vleft > .innards {
+        top: -25vh;
+        left:50vw;
+    } 
+    .right {
+        right: 0;
+        bottom:0;
+    }
+    .right > .innards {
+        top: 75vh;
+        left:50vw;
+    } 
+}
