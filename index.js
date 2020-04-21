@@ -19,6 +19,11 @@
     function random() {
         var keys = Object.keys(tags)
         var key = keys[Math.ceil(Math.random() * keys.length)]
+        setTimeout(function() {
+            if (!imgCache[key]) {
+                
+            }
+        })
         return {tag:key,imgs: tags[key]}
     }
     function correct(left,right,higher) {
@@ -32,9 +37,12 @@
         document.querySelector("#rightTagName").innerText = gamestate.rightTag.tag
     }
 
+    var imgCache = {}
+
     console.log("here")
     window.playGame = function() {
         if (!tags) return;
+        gamestate.score = 0
         gamestate.leftTag = random()
         gamestate.rightTag = random()
         gamestate.playing = true
@@ -43,5 +51,26 @@
         document.querySelector("#gamePanel").style.display = "block"
 
     }
-    document.querySelector("")
+    document.querySelector("#higherBtn").addEventListener("click",function() {
+        if (correct(gamestate.leftTag.imgs,gamestate.rightTag.imgs,true)) {
+            gamestate.score += 1;
+            gamestate.leftTag = gamestate.rightTag
+            gamestate.rightTag = random()
+            render()
+        } else {
+            alert("boo you suck you only got " + gamestate.score)
+            window.playGame()
+        }
+    })
+    document.querySelector("#lowerBtn").addEventListener("click",function() {
+        if (correct(gamestate.leftTag.imgs,gamestate.rightTag.imgs,false)) {
+            gamestate.score += 1;
+            gamestate.leftTag = gamestate.rightTag
+            gamestate.rightTag = random()
+            render()
+        } else {
+            alert("boo you suck you only got " + gamestate.score)
+            window.playGame()
+        }
+    })
 })()
