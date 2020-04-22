@@ -83,7 +83,7 @@ document.ontouchmove = function(e){
     window.playGame = function() {
         if (!tags) return;
         document.querySelector(".side.panel.right > .innards").classList.remove("final")
-        document.querySelector("#lowerBtn").innerText = "Lower"
+        document.querySelector("#lowerBtn").innerText = "Less"
         gamestate.score = 0
         gamestate.leftTag = random()
         gamestate.rightTag = random()
