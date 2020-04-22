@@ -47,14 +47,21 @@ document.ontouchmove = function(e){
     }
     function render() {
         try {
-            document.querySelector("#vleftTagName").innerText = gamestate.lastTag.tag
             document.querySelector("#vleftTagResult").innerText = gamestate.lastTag.imgs.toLocaleString()
-            document.querySelector("#vleftImg").style.backgroundImage = getImage(gamestate.lastTag.tag)
-            document.querySelector("#leftTagName").innerText = gamestate.leftTag.tag
             document.querySelector("#leftTagResult").innerText = gamestate.leftTag.imgs.toLocaleString()
-            document.querySelector("#leftImg").style.backgroundImage = getImage(gamestate.leftTag.tag)
+
+            document.querySelector("#vleftTagName").innerText = gamestate.lastTag.tag
+            document.querySelector("#leftTagName").innerText = gamestate.leftTag.tag
             document.querySelector("#rightTagName").innerText = gamestate.rightTag.tag
+
+            document.querySelector("#vleftImg").style.backgroundImage = getImage(gamestate.lastTag.tag)
+            document.querySelector("#leftImg").style.backgroundImage = getImage(gamestate.leftTag.tag)
             document.querySelector("#rightImg").style.backgroundImage = getImage(gamestate.rightTag.tag)
+
+            document.querySelector("#leftSauce").style.display = getImage(gamestate.leftTag.tag) ? "block" : "none"
+            document.querySelector("#leftSauce").href = "https://e621.net/posts?tags=md5%3A" + getImage(gamestate.leftTag.tag).split("/")[6].split(".")[0]
+            document.querySelector("#rightSauce").style.display = getImage(gamestate.rightTag.tag) ? "block" : "none"
+            document.querySelector("#rightSauce").href = "https://e621.net/posts?tags=md5%3A" + getImage(gamestate.rightTag.tag).split("/")[6].split(".")[0]
         } catch(e) {
 
         }

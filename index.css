@@ -23,6 +23,8 @@ body {
 
 }
 
+a {color:#fff;}
+
 .panel {
     position:fixed;
     width:100vw;
@@ -89,6 +91,7 @@ h1 {
 } 
 .left {
     left: 0;
+    position:absolute;
 }
 .left > .innards {
     left: 25vw;
@@ -99,6 +102,18 @@ h1 {
 .right > .innards {
     left: 75vw;
 } 
+
+#rightSauce {
+    position: fixed;
+    right:0vw;
+    bottom:0vh;
+}
+#leftSauce {
+    position:fixed;
+    left:0vw;
+    bottom:0vh;
+    z-index: 999;
+}
 
 #leftImg {
     opacity: 0.4;
@@ -165,6 +180,20 @@ h1 {
   
 @media (orientation:portrait) {
     h1 { max-width: 100vw; }
+
+    #rightSauce {
+        position:fixed;
+        left:50vw;
+        transform:translate(-50%,0%);
+        bottom:0;
+        max-width:7em;
+    }
+    #leftSauce {
+        position:fixed;
+        left:50vw;
+        transform:translate(-50%,0%);
+        top:0;
+    }
     
     #rightImg {
         top:50vh;
